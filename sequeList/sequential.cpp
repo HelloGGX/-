@@ -7,9 +7,9 @@ typedef int ElemType;
 
 // 定义顺序表的结构体
 typedef struct {
-  ElemType *data; // 存放顺序表元素的数组
-  int length;     // 顺序表的当前长度
-  int capacity;   // 顺序表的最大容量
+  ElemType *data;  // 存放顺序表元素的数组
+  int length;      // 顺序表的当前长度
+  int capacity;    // 顺序表的最大容量
 } SeqList;
 
 void InitList(SeqList &list, int capacity) {
@@ -20,13 +20,13 @@ void InitList(SeqList &list, int capacity) {
 
 bool InsertElem(SeqList &list, int index, ElemType elem) {
   if (index < 0 || index > list.length || list.length >= list.capacity) {
-    return false; // 插入位置非法或顺序表已满
+    return false;  // 插入位置非法或顺序表已满
   }
 
   // 从后往前循环
   for (int i = list.length; i > index; i--) {
     // 前项赋值给后项
-    list.data[i] = list.data[i - 1]; // 将元素后移
+    list.data[i] = list.data[i - 1];  // 将元素后移
   }
   list.data[index] = elem;
   list.length++;
@@ -42,7 +42,7 @@ bool DeleteElem(SeqList &list, int index) {
   // 从前往后循环
   for (int i = index; i < list.length - 1; i++) {
     // 后项赋值给前项
-    list.data[i] = list.data[i + 1]; // 将元素向前移动
+    list.data[i] = list.data[i + 1];  // 将元素向前移动
   }
   list.length--;
   return true;
@@ -58,6 +58,7 @@ int LocateElem(SeqList &list, ElemType elem) {
   }
   return 0;
 }
+
 int FindMinELem(SeqList &list) {
   if (list.length == 0) {
     return -1;
@@ -89,16 +90,49 @@ void DisplayList(const SeqList &list) {
   std::cout << std::endl;
 }
 
+SeqList ReverseList(SeqList &list) {
+  int i = 0;
+  int j = list.length - 1;
+  while (i < j) {
+    int prev = list.data[i];
+    list.data[i] = list.data[j];
+    list.data[j] = prev;
+    i++;
+    j--;
+  };
+  return list;
+}
+
+SeqList RemoveAllOccurrences(SeqList &list, int x) {
+  int j = 0;
+  for (int i = 0; i < list.length; i++) {
+    if (list.data[i] != x) {
+      list.data[j] = list.data[i];
+      j++;
+    }
+  }
+  list.length = j;  // 更新顺序表的长度
+  return list;
+}
+
 int main() {
   // SeqList list;
   std::cout << "hello world!!" << std::endl;
 
   SeqList list;
   InitList(list, 20);
-  InsertElem(list, 0, 0);
-  InsertElem(list, 1, 1);
-  InsertElem(list, 2, 2);
-  InsertElem(list, 3, 3);
-  InsertElem(list, 4, 4);
+  InsertElem(list, 0, 23);
+  InsertElem(list, 1, 0);
+  InsertElem(list, 2, 25);
+  InsertElem(list, 3, 2);
+  InsertElem(list, 4, 15);
+  InsertElem(list, 5, 9);
+  InsertElem(list, 6, 2);
+  DisplayList(list);
+  DeleteMinElem(list);
+  DisplayList(list);
+  ReverseList(list);
+  DisplayList(list);
+  RemoveAllOccurrences(list, 2);
   DisplayList(list);
 }
