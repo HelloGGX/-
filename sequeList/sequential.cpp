@@ -15,6 +15,7 @@ bool InsertElem(SeqList& list, int index, ElemType elem){
    if(index < 0 || index > list.length || list.length >= list.capacity){
     return false;// 插入位置非法或顺序表已满
    }
+
    for(int i = list.length; i > index; i--){
     list.data[i] = list.data[i - 1]; // 将元素后移
    }
