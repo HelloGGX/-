@@ -115,6 +115,16 @@ SeqList RemoveAllOccurrences(SeqList &list, int x) {
   return list;
 }
 
+SeqList RemoveRangeList(SeqList &list, int s, int t) {
+  if (list.length == 0) {
+    throw std::runtime_error("this list is empty");
+  };
+  for (int i = s; i < t; i++) {
+    RemoveAllOccurrences(list, i);
+  };
+  return list;
+}
+
 int main() {
   // SeqList list;
   std::cout << "hello world!!" << std::endl;
@@ -133,6 +143,8 @@ int main() {
   DisplayList(list);
   ReverseList(list);
   DisplayList(list);
-  RemoveAllOccurrences(list, 2);
+  // RemoveAllOccurrences(list, 2);
+  // DisplayList(list);
+  RemoveRangeList(list, 0, 10);
   DisplayList(list);
 }
